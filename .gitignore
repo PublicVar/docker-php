@@ -13,5 +13,9 @@
 /postgresql
 !/postgresql/.gitkeep
 
+# mysql data
+/mysql
+!/mysql/.gitkeep
+
 # IDEs
 /.idea
