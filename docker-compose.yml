@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-##### Uncomment if you want to you postgresql ###################     
+##### Uncomment if you want to you postgresql ###################
 #    postgresql:
 #        image: postgres:alpine
 #        container_name: ${CONTAINER_PREFIX}.postgresql
@@ -17,7 +17,9 @@ services:
     mysql:
         image: mysql:${MYSQL_VERSION}
         container_name: ${CONTAINER_PREFIX}.mysql${MYSQL_VERSION}
-        restart: always
+        # Useful when importing database file using phpmyadmin
+        # Uncomment this if you have errors when importing database with phpmyadmin
+        # command: --max_allowed_packet=32505856
         ports:
             - ${MYSQL_PORT}:3306
         environment:
@@ -52,6 +54,22 @@ services:
         volumes:
             - ./php-fpm/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
             - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+    # For Drupal
+    #not really meant to be executed with docker-compose up. It will exit with code 0
+    #for use drush :
+    #docker-compose run drush cr
+    #We use a custom docker file because when the version php of the drush and of the app
+    #is different there is somes issues.
+    # drush:
+    #     build: ./drush
+    #     container_name: ${CONTAINER_PREFIX}.drush
+    #     volumes_from:
+    #         - app
+    #     links:
+    #         - mysql
+    #     entrypoint:
+    #         - drush
+    #         - "--root=/var/www/app"
     nginx:
         build: ./nginx
         container_name: ${CONTAINER_PREFIX}.nginx

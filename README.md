@@ -14,9 +14,19 @@ sudo echo "0.0.0.0 lekode.dev" >> /etc/hosts
 3. Build containers
 `docker-compose build`
 
+## Custom nginx
+
+You can update nginx configuration in `nginx/conf.d`.
+
+There is already some templates. You to rename them and removing *.dist*. Do not forget
+to edit them to your need.
+
 ## Usage
+
 After building the containers, just run them and you’re ready to go
 `docker-compose up -d`
+
+**Dont forget to change the containers port, in the .env file, if needed !**
 
 ## Utils
 Here is a list of things that can help you
